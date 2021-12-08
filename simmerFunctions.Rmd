@@ -1,0 +1,44 @@
+---
+title: "Funções simmer"
+author: "Djonathan Quadras"
+output: pdf_document
+---
+
+# Sources
+
+`activate()`: Ativa determinada fonte em uma trajetória.
+
+`deactivate()`: Desativa determinada fonte em uma trajetória.
+
+`add_dataframe()`: Adiciona uma source à uma trajetória com base em um dataframe.
+
+`add_generator()`: Adiciona uma nova source à uma trajetória.
+
+
+# Atributos
+
+`add_global()`: Adiciona um atributo global à simulação.
+
+# Recursos
+
+`add_resource()`: Adiciona um recurso à simulação. Os recursos contém filas e são compostos por duas partes internas autogeridas: um *server* e uma fila na qual as chegadas podem aguardar a disponibilidade do servidor.
+
+# Lotes
+
+`batch()`: junta entidades em um lote.
+
+`separate()`: separa um lote em entidades.
+
+# Trajetória
+
+`branch()`: separa a trajetória em diversas sub-trajetórias.
+
+`join()`: junta diversas trajetórias em uma só.
+
+# Simulação
+
+`now()`: retorna o tempo atual da simulação.
+
+`reset()`: reseta todos os componentes de um ambiente.
+
+`run()`: roda a simulação.
