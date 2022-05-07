@@ -1,7 +1,0 @@
-install.packages("simmer")
-install.packages("simmer.plot")
-install.packages("parallel")
-install.packages("testthat")
-install.packages("knitr")
-install.packages("rmarkdown")
-install.packages("rticles")
