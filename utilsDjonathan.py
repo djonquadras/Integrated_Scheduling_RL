@@ -1,3 +1,6 @@
+import random as rd
+import simpy
+
 class order:
   """
   The production orders that will be produced in the factory.
@@ -19,6 +22,15 @@ class order:
     self.needStove = 0
 
 
+def time_per_part(PT_MEAN, PT_SIGMA):
+  """Return actual processing time for a concrete part."""
+  return rd.normalvariate(PT_MEAN, PT_SIGMA)
+def time_to_failure(BREAK_MEAN):
+  """Return time until next failure for a machine."""
+  return rd.expovariate(BREAK_MEAN)
+
+
+
 class Machine(object):
     """A machine produces the productionOrders and may get broken.
     If it breaks, it requests a *maintenance* and continues the production
@@ -34,7 +46,7 @@ class Machine(object):
         self.process = env.process(self.working(repairman))
         env.process(self.break_machine())
     
-    def working(self, repairman):
+    def working(self, repairman, REPAIR_TIME):
         """Produce parts as long as the simulation runs.
         While making a part, the machine may break multiple times.
         Request a repairman when this happens.
