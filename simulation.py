@@ -6,6 +6,7 @@ import time
 import random as rd
 import utils as dj
 import weg_process as weg
+import pandas as pd
 
 # Create the environment
 env = simpy.Environment()
@@ -14,21 +15,50 @@ env = simpy.Environment()
 rd.seed(123)
 
 # Production Orders
-dj.order(code = 111, steelType = "A", startDate=0, dueDate=10, demand=50)
+order = dj.order(code = 111, steelType = "A", startDate=0, dueDate=10, demand=50)
+order.stampingTime = 15
+order.needStove = True
 
-# The jobs
+# Reading Data
 
-wegJob = weg()
+data = pd.read_excel("data.xlsx", engine = "openpyxl")
+print(data.startDate[0])
+#print(data.head())
 
-def jobs(env, wegJob, order):
-    "The jobs process"
-    with wegJob.stampingMachine.request() as req:
-        yield req
-        yield env.process(wegJob.stamping(order))
 
-    if order.needStove:
-        yield env.process(wegJob.stove())
 
+# # The source
+# def source(env, number, interval, counter):
+#     """Source generates customers randomly"""
+#     for i in range(number):
+#         c = customer(env, 'Customer%02d' % i, counter, time_in_bank=12.0)
+#         env.process(c)
+#         t = random.expovariate(1.0 / interval)
+#         yield env.timeout(t)
+
+
+
+# # The jobs
+
+# def jobs(env, wegJob, order):
+#     "The jobs process"
+#     while True:
+#         print("Job Started")
+#         with wegJob.stampingMachine.request() as req:
+#             yield req
+#             yield env.process(wegJob.stamping(order))
+#             print(f"Job left stamping machine at {env.now}")
+
+#         if order.needStove:
+#             print("order needed stove")
+#             yield env.process(wegJob.stove())
+#             print(f"order left line at {env.now}")
+
+
+
+# env.process(jobs(env, weg.weg(env,3), order))
+# # Execute!
+# env.run(until=4500)
 
     
 
