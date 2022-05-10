@@ -4,11 +4,11 @@ import simpy
 class order:
   """
   The production orders that will be produced in the factory.
-  *code* differentiate the production orders.
-  *steelType* classificate the order regarding three different steel types
-  *startDate* is when the demand arrives
-  *dueDate* is the time limit to produce the order
-  *demand* is the amount that must be produced. 
+  ``code`` differentiate the production orders.
+  ``steelType`` classificate the order regarding three different steel types
+  ``startDate`` is when the demand arrives
+  ``dueDate`` is the time limit to produce the order
+  ``demand`` is the amount that must be produced. 
   """
   def __init__(self,code, steelType, startDate, dueDate, demand):
     self.code = code
@@ -17,6 +17,7 @@ class order:
     self.dueDate = dueDate
     self.demand = demand
     self.totalProcessingTime = 0
+    self.stampingTime = 0
     self.machine = 0
     self.priority = 0
     self.needStove = 0
@@ -25,10 +26,10 @@ class order:
 def time_per_part(PT_MEAN, PT_SIGMA):
   """Return actual processing time for a concrete part."""
   return rd.normalvariate(PT_MEAN, PT_SIGMA)
+
 def time_to_failure(BREAK_MEAN):
   """Return time until next failure for a machine."""
   return rd.expovariate(BREAK_MEAN)
-
 
 
 class Machine(object):
@@ -37,11 +38,12 @@ class Machine(object):
     after the it is repaired.
     A machine has a *name* and a number of *parts_made* thus far.
     """
-    def __init__(self, env, name, repairman):
+    def __init__(self, env, name, repairman, WORKING_HOUR):
         self.env = env
         self.name = name
         self.parts_made = 0
         self.broken = False
+        self.inWorkingJourney = True
         # Start "working" and "break_machine" processes for this machine.
         self.process = env.process(self.working(repairman))
         env.process(self.break_machine())
@@ -80,4 +82,4 @@ class Machine(object):
             if not self.broken:
                 # Only break the machine if it is currently working.
                 self.process.interrupt()
-  
+            
