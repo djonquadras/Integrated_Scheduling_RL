@@ -10,9 +10,8 @@ class order:
   ``dueDate`` is the time limit to produce the order
   ``demand`` is the amount that must be produced. 
   """
-  def __init__(self,code, steelType, startDate, dueDate, demand):
+  def __init__(self,code, needStove, startDate, dueDate, demand):
     self.code = code
-    self.steelType = steelType
     self.startDate = startDate
     self.dueDate = dueDate
     self.demand = demand
@@ -20,7 +19,7 @@ class order:
     self.stampingTime = 0
     self.machine = 0
     self.priority = 0
-    self.needStove = 0
+    self.needStove = needStove
 
 
 def time_per_part(PT_MEAN, PT_SIGMA):

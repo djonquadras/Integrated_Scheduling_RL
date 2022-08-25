@@ -20,8 +20,12 @@ order.stampingTime = 15
 order.needStove = True
 
 # Reading Data
-
+listOfOrders = list()
 data = pd.read_excel("data.xlsx", engine = "openpyxl")
+for i in data.index:
+    ord = dj.order(data.productionOrder[1],
+                    data.s)
+
 print(data.startDate[0])
 #print(data.head())
 
