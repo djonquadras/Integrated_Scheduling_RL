@@ -8,3 +8,4 @@
 *.pdf
 *.html
 *.tex
+/.env
